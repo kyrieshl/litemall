@@ -15,6 +15,34 @@ Page({
       status: options.status === '1' ? true : false
     })
   },
+  payOrder: function () {
+    let that = this;
+    wx.showModal({
+      title: '目前不能微信支付',
+      content: '点击确定模拟支付成功，点击取消模拟未支付成功',
+      success: function (res) {
+        if (res.confirm) {
+          util.request(api.OrderPay, { orderId: that.data.orderId } , 'POST').then(res => {
+            if (res.errno === 0) {
+              wx.redirectTo({
+                url: '/pages/payResult/payResult?status=1&orderId=' + that.data.orderId
+              });
+            }
+            else {
+              wx.redirectTo({
+                url: '/pages/payResult/payResult?status=0&orderId=' + that.data.orderId
+              });
+            }
+          })
+        }
+        else if (res.cancel) {
+          wx.redirectTo({
+            url: '/pages/payResult/payResult?status=0&orderId=' + that.data.orderId
+          });
+        }
+      }
+    })
+  },
   onReady: function () {
 
   },
@@ -29,14 +57,5 @@ Page({
   onUnload: function () {
     // 页面关闭
 
-  },
-  payOrder() {
-    pay.payOrder(this.data.orderId).then(res => {
-      this.setData({
-        status: true
-      });
-    }).catch(res => {
-      util.showErrorToast('支付失败');
-    });
-  }
+  }  
 })

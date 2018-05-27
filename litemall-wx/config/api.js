@@ -1,18 +1,20 @@
 // 以下是业务服务器API地址
+// 阿里云
+// var WxApiRoot = 'http://120.78.140.109:8082/wx/';
 // 本机开发时使用
-// var WxApiRoot = 'http://localhost:8082/wx/';
+ var WxApiRoot = 'http://localhost:8082/wx/';
 // 局域网测试使用
 // var WxApiRoot = 'http://192.168.0.101:8082/wx/';
 // 云平台部署时使用
- var WxApiRoot = 'http://122.152.206.172:8082/wx/';
+// var WxApiRoot = 'http://122.152.206.172:8082/wx/';
 
 // 以下是图片存储服务器API地址
 // 本机开发时使用
-// var StorageApi = 'http://localhost:8081/storage/storage/create';
+ var StorageApi = 'http://localhost:8081/storage/storage/create';
 // 局域网测试时使用
 // var StorageApi = 'http://192.168.0.101:8081/storage/storage/create';
 // 云平台部署时使用
-var StorageApi = 'http://122.152.206.172:8081/storage/storage/create';
+// var StorageApi = 'http://122.152.206.172:8081/storage/storage/create';
 
 
 module.exports = {
@@ -71,13 +73,14 @@ module.exports = {
     RegionList: WxApiRoot + 'region/list',  //获取区域列表
 
     OrderSubmit: WxApiRoot + 'order/submit', // 提交订单
+    OrderPay:WxApiRoot + 'order/pay', // 订单付款
     OrderList: WxApiRoot + 'order/list',  //订单列表
     OrderDetail: WxApiRoot + 'order/detail',  //订单详情
     OrderCancel: WxApiRoot + 'order/cancel',  //取消订单
     OrderRefund: WxApiRoot + 'order/refund',  //取消订单并退款
     OrderDelete: WxApiRoot + 'order/delete',  //删除订单
     OrderConfirm: WxApiRoot + 'order/confirm',  //确认收货
-    OrderComment: WxApiRoot + 'order/comment',  // 代评价商品信息
+    OrderComment: WxApiRoot + 'order/comment',  // 待评价商品信息
 
     FootprintList: WxApiRoot + 'footprint/list',  //足迹列表
     FootprintDelete: WxApiRoot + 'footprint/delete',  //删除足迹

@@ -35,7 +35,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "仿网易严选",
+    "navigationBarTitleText": "分布式电商平台",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },

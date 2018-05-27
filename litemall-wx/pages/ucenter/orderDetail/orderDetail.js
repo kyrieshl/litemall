@@ -31,30 +31,63 @@ Page({
     });
   },
   // “去付款”按钮点击效果
-  payOrder: function () {
-    let that = this;
-    util.request(api.PayPrepayId, {
-      orderId: that.data.orderId
-    }, 'POST').then(function (res) {
-      if (res.errno === 0) {
-        const payParam = res.data;
-        wx.requestPayment({
-          'timeStamp': payParam.timeStamp,
-          'nonceStr': payParam.nonceStr,
-          'package': payParam.package,
-          'signType': payParam.signType,
-          'paySign': payParam.paySign,
-          'success': function (res) {
-            console.log(res)
-          },
-          'fail': function (res) {
-            console.log(res)
-          }
-        });
-      }
-    });
+  // payOrder: function () {
+  //   let that = this;
+  //   util.request(api.PayPrepayId, {
+  //     orderId: that.data.orderId
+  //   }, 'POST').then(function (res) {
+  //     if (res.errno === 0) {
+  //       const payParam = res.data;
+  //       wx.requestPayment({
+  //         'timeStamp': payParam.timeStamp,
+  //         'nonceStr': payParam.nonceStr,
+  //         'package': payParam.package,
+  //         'signType': payParam.signType,
+  //         'paySign': payParam.paySign,
+  //         'success': function (res) {
+  //           console.log(res)
+  //         },
+  //         'fail': function (res) {
+  //           console.log(res)
+  //         }
+  //       });
+  //     }
+  //   });
 
-  },
+  // },
+
+  // “去付款”按钮点击效果
+   payOrder: function () {
+     let that = this;
+     let orderInfo = that.data.orderInfo;
+     wx.showModal({
+       title: '目前不能微信支付',
+       content: '点击确定模拟支付成功，点击取消模拟未支付成功',
+       success: function (res) {
+         if (res.confirm) {
+           util.request(api.OrderPay, { orderId: orderInfo.id }, 'POST').then(res => {
+             if (res.errno === 0) {
+               wx.redirectTo({
+                 url: '/pages/payResult/payResult?status=1&orderId=' + orderInfo.id
+               });
+             }
+             else {
+               wx.redirectTo({
+                 url: '/pages/payResult/payResult?status=0&orderId=' + orderInfo.id
+               });
+             }
+           });
+         }
+         else if (res.cancel) {
+           wx.redirectTo({
+             url: '/pages/payResult/payResult?status=0&orderId=' + orderInfo.id
+           });
+         }
+
+       }
+     });
+   },
+
   // “取消订单”点击效果
   cancelOrder: function () {
     let that = this;

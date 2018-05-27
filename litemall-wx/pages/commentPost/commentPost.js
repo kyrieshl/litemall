@@ -131,6 +131,7 @@ Page({
     }
 
     util.request(api.CommentPost, {
+      orderId: that.data.orderId,
       typeId: that.data.typeId,
       valueId: that.data.valueId,
       content: that.data.content,
